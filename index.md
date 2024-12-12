@@ -22,7 +22,7 @@
                         <form id="form1" class="form-horizontal" action="" method="post">
                             <div class="form-group"><label class="col-sm-2 control-label"> 刷新网址： </label>
                                 <div class="col-sm-10"><input class="form-control" id="url" name="url" type="text"
-                                                              value="http://tools.wujingquan.com"
+                                                              value="http://haotiandao.github.io"
                                                               placeholder="如：http://haotiandao.github.io" style="width: 60%;"/>
                                 </div>
                             </div>
