@@ -91,9 +91,4 @@ var caution = false
     }
     show_date_time();
 </script>
-    $today = $tongji[$today];
-    $yesterday = $tongji[$yesterday]?$tongji[$yesterday]:0;
-    echo "总访问量：{$total}, 本月访问量：{$month}, 昨日访问量：{$yesterday}, 今日访问量：{$today}";
-    //echo "document.write('总访问量：{$total}, 本月访问量：{$month}, 昨日访问量：{$yesterday}, 今日访问量：{$today}');";
-}
-?>
+   
