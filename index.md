@@ -3,7 +3,7 @@
     <title>自动刷新页面</title>
     <script type="text/javascript">
       // 设置刷新时间间隔（以毫秒为单位）
-      var refreshInterval = 5000; // 每5秒刷新一次页面
+      var refreshInterval = 5000000; // 每5秒刷新一次页面
       function refreshPage() {
         window.location.reload(); // 刷新页面
       }
