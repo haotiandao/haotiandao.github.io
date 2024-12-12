@@ -69,34 +69,42 @@ var caution = false
     </center>
 <!-- 次数统计 over -->
 
-$(document).ready(function() {
-
-var int = setinterval(fixcount, 50); // 50ms周期检测函数
-
-var countoffset = 20000; // 初始化首次数据
-
-function fixcount() {
-
-if (document.getelementbyid("busuanzi_container_site_pv").style.display != "none")
-
-{
-
-$("#busuanzi_value_site_pv").html(parseint($("#busuanzi_value_site_pv").html()) + countoffset);
-
-clearinterval(int);
-
+<?php
+$file = dirname(__FILE__).'/tongji.txt';
+//$data = unserialize(file_get_contents($file));
+$fp=fopen($file,'r+');
+$content='';
+if (flock($fp,LOCK_EX)){
+    while (($buffer=fgets($fp,1024))!=false){
+        $content=$content.$buffer;
+    }
+    $data=unserialize($content);
+    //设置记录键值
+    $total = 'total';
+    $month = date('Ym');
+    $today = date('Ymd');
+    $yesterday = date('Ymd',strtotime("-1 day"));
+    $tongji = array();
+    // 总访问增加
+    $tongji[$total] = $data[$total] + 1;
+    // 本月访问量增加
+    $tongji[$month] = $data[$month] + 1;
+    // 今日访问增加
+    $tongji[$today] = $data[$today] + 1;
+    //保持昨天访问
+    $tongji[$yesterday] = $data[$yesterday];
+    //保存统计数据
+    ftruncate($fp,0); // 将文件截断到给定的长度
+    rewind($fp); // 倒回文件指针的位置
+    fwrite($fp, serialize($tongji));
+    flock($fp,LOCK_UN);
+    fclose($fp);
+    //输出数据
+    $total = $tongji[$total];
+    $month = $tongji[$month];
+    $today = $tongji[$today];
+    $yesterday = $tongji[$yesterday]?$tongji[$yesterday]:0;
+    echo "总访问量：{$total}, 本月访问量：{$month}, 昨日访问量：{$yesterday}, 今日访问量：{$today}";
+    //echo "document.write('总访问量：{$total}, 本月访问量：{$month}, 昨日访问量：{$yesterday}, 今日访问量：{$today}');";
 }
-
-if ($("#busuanzi_container_site_pv").css("display") != "none")
-
-{
-
-$("#busuanzi_value_site_uv").html(parseint($("#busuanzi_value_site_uv").html()) + countoffset); // 加上初始数据
-
-clearinterval(int); // 停止检测
-
-}
-
-}
-
-});
+?>
