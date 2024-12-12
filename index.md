@@ -3,7 +3,7 @@
     <title>自动刷新页面</title>
     <script type="text/javascript">
       // 设置刷新时间间隔（以毫秒为单位）
-      var refreshInterval = 50000000; // 每5秒刷新一次页面
+      var refreshInterval = 5000; // 每5秒刷新一次页面
       function refreshPage() {
         window.location.reload(); // 刷新页面
       }
@@ -21,42 +21,55 @@
 <html>
  <head> 
   
-  
-    <ul class="copyright"> 
-     <li>©[BIG_DOMAIN]. All Rights Reserved.</li> 
-     <li>Github Project : <a href="https://github.com/hunshcn/gh-proxy" target="_blank">hunshcn/gh-proxy</a></li> 
-     <li>UI : <a href="https://mirror.ghproxy.com/" target="_blank">ghproxy.com</a></li> 
-    </ul> 
-   <center>
-  <script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8" src="https://v6-widget.51.la/v6/KLPEMIxYMeMTDBgN/quote.js?theme=#969696,#333333,#999999,#333333,#FFFFFF,#969696,12&f=12&display=0,0,1,0,0,0,0,1"></script>
-  </center>
-   </footer> 
-  </div> 
-  <!-- Scripts --> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/jquery.min.js"></script> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/jquery.dropotron.min.js"></script> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/jquery.scrollex.min.js"></script> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/browser.min.js"></script> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/breakpoints.min.js"></script> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/util.js"></script> 
-  <script src="https://static.yzcdn.net/gh-proxy-ui/js/main.js"></script>
-  <script>
-   
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const Domain = window.location.hostname;
-        const CapitalizedDomain = Domain.charAt(0).toUpperCase() + Domain.slice(1);
-              https_domain = 'https://' + Domain;
-        document.querySelectorAll('*').forEach(element => {
-            if (element.innerHTML.includes('[DOMAIN]')) {
-                element.innerHTML = element.innerHTML.replace(/\[DOMAIN\]/g, https_domain);
+  <!-- 次数统计 start -->
+<center>
+<script>
+var caution = false
+        function setCookie(name, value, expires, path, domain, secure) {
+            var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "")
+            if (!caution || (name + "=" + escape(value)).length <= 4000)
+                document.cookie = curCookie
+            else if (confirm("Cookie exceeds 4KB and will be cut!"))
+                document.cookie = curCookie
+        }
+        function getCookie(name) {
+            var prefix = name + "="
+            var cookieStartIndex = document.cookie.indexOf(prefix)
+            if (cookieStartIndex == -1)
+                return null
+            var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+            if (cookieEndIndex == -1)
+                cookieEndIndex = document.cookie.length
+            return unescape(document.cookie.substring(cookieStartIndex + prefix.length,
+                cookieEndIndex))
+        }
+        function deleteCookie(name, path, domain) {
+            if (getCookie(name)) {
+                document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT"
             }
-            if (element.innerHTML.includes('[NO_HTTPS_DOMAIN]')) {
-                element.innerHTML = element.innerHTML.replace(/\[NO_HTTPS_DOMAIN\]/g, Domain);
-            }
-            if (element.innerHTML.includes('[BIG_DOMAIN]')) {
-                element.innerHTML = element.innerHTML.replace(/\[BIG_DOMAIN\]/g, CapitalizedDomain);
-            }
-        });
+        }
+        function fixDate(date) {
+            var base = new Date(0)
+            var skew = base.getTime()
+            if (skew > 0)
+                date.setTime(date.getTime() - skew)
+        }
+        var now = new Date()
+        fixDate(now)
+        now.setTime(now.getTime() + 730 * 24 * 60 * 60 * 1000)
+        var visits = getCookie("counter")
+        if (!visits)
+            visits = 1
+        else
+            visits = parseInt(visits) + 1
+        setCookie("counter", visits, now)
+        document.write("<font size=2color=black>欢迎您，您是第：" + visits + " 个访问该站点的访客")
+
+    </script>
+    </center>
+<!-- 次数统计 over -->
+
+
      // 显示网页内容
         document.body.style.display = 'block';
     });
