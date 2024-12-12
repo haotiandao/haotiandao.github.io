@@ -68,11 +68,3 @@ var caution = false
     </script>
     </center>
 <!-- 次数统计 over -->
-
-
-     // 显示网页内容
-        document.body.style.display = 'block';
-    });
-</script>
- </body>
-</html>
