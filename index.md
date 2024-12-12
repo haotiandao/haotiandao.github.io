@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>自动刷新页面</title>
