@@ -42,6 +42,5 @@
                                 <div class="col-sm-12">
                                     <iframe id="frame" style="width: 100%; height: 600px; padding: 10px; border: 1px solid #66be8c;"></iframe>
                                 </div>
-                            </div>
-                        </form>
+                         
                 
