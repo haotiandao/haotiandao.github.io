@@ -69,39 +69,28 @@ var caution = false
     </center>
 <!-- 次数统计 over -->
 
-<?php
-$file = dirname(__FILE__).'/tongji.txt';
-//$data = unserialize(file_get_contents($file));
-$fp=fopen($file,'r+');
-$content='';
-if (flock($fp,LOCK_EX)){
-    while (($buffer=fgets($fp,1024))!=false){
-        $content=$content.$buffer;
+本站已运行：<span id=span_dt_dt style="color: #2F889A;"></span>
+<script language=javascript>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        // 这里修改站点开启日期
+        BirthDay=new Date("12/03/2023 00:00:00");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=Math.floor(e_hrsold);
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=Math.floor((e_hrsold-hrsold)*60);
+        seconds=Math.floor((e_minsold-minsold)*60);
+        span_dt_dt.innerHTML='<font style=color:#C40000>'+daysold+'</font> 天 <font style=color:#C40000>'+hrsold+'</font> 时 <font style=color:#C40000>'+minsold+'</font> 分 <font style=color:#C40000>'+seconds+'</font> 秒';
     }
-    $data=unserialize($content);
-    //设置记录键值
-    $total = 'total';
-    $month = date('Ym');
-    $today = date('Ymd');
-    $yesterday = date('Ymd',strtotime("-1 day"));
-    $tongji = array();
-    // 总访问增加
-    $tongji[$total] = $data[$total] + 1;
-    // 本月访问量增加
-    $tongji[$month] = $data[$month] + 1;
-    // 今日访问增加
-    $tongji[$today] = $data[$today] + 1;
-    //保持昨天访问
-    $tongji[$yesterday] = $data[$yesterday];
-    //保存统计数据
-    ftruncate($fp,0); // 将文件截断到给定的长度
-    rewind($fp); // 倒回文件指针的位置
-    fwrite($fp, serialize($tongji));
-    flock($fp,LOCK_UN);
-    fclose($fp);
-    //输出数据
-    $total = $tongji[$total];
-    $month = $tongji[$month];
+    show_date_time();
+</script>
     $today = $tongji[$today];
     $yesterday = $tongji[$yesterday]?$tongji[$yesterday]:0;
     echo "总访问量：{$total}, 本月访问量：{$month}, 昨日访问量：{$yesterday}, 今日访问量：{$today}";
