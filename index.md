@@ -1,8 +1,14 @@
+<script type="text/javascript">
+    function refreshPage() {
+        location.reload();
+    }
+    setInterval(refreshPage, 5000);
+</script>
 
                     
                    
              
-                    </ul>
+                 
                     <div class="panel">
                         <form id="form1" class="form-horizontal" action="" method="post">
                             <div class="form-group"><label class="col-sm-2 control-label"> 刷新网址： </label>
