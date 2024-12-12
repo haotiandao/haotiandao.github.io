@@ -69,11 +69,40 @@ var caution = false
     </center>
 <!-- 次数统计 over -->
 
-<script async src="https://api.ly522.com/js/jilei.pure.mini.js"></script>
-<span id="jilei_container_site_pv">本站总访问量<span id="jilei_value_site_pv"></span>次</span>
-<span class="post-meta-divider">|</span>
-<span id="jilei_container_site_uv">本站访客数<span id="jilei_value_site_uv"></span>人</span></p>
-$sitecount = get_option('site_count');
-$date = date('ymd',time());
-echo '<p>总访问量：<span style="color:#7df1ff">'.absint($sitecount['all']).'</span> &nbsp;&nbsp; 今日访问量：<span style="color:#7df1ff">'.absint($sitecount['today']).'</span> &nbsp;&nbsp; 您是今天第：<span style="color:#7df1ff">'.absint($_SESSION['wb_'.$date]).'</span> 位访问者</p>';
-}
+1 /**
+ 2 * 统计全站总访问量/今日总访问量/当前是第几个访客
+ 3 * @return [type] [description]
+ 4 */
+ 5 function wb_site_count_user(){
+ 6 $addnum = 1; //初始化访问人数
+ 7 session_start();
+ 8 $date = date('ymd',time());
+ 9 if(!isset($_SESSION['wb_'.$date]) && !$_SESSION['wb_'.$date]){
+10 $count = get_option('site_count');
+11 if(!$count || !is_array($count)){
+12 $newcount = array(
+13 'all' => 0,
+14 'date' => $date,
+15 'today' => $addnum
+16 );
+17 update_option( 'site_count', $newcount );
+18 }else{
+19 $newcount = array(
+20 'all' => ($count['all']+$addnum),
+21 'date' => $date,
+22 'today' => ($count['date'] == $date) ? ($count['today']+$addnum) : $addnum
+23 );
+24 update_option( 'site_count', $newcount );
+25 }
+26 $_SESSION['wb_'.$date] = $newcount['today'];
+27 }
+28 return;
+29 }
+30 add_action('init', 'wb_site_count_user');
+31 //输出访问统计
+32 function wb_echo_site_count(){
+33 session_start();
+34 $sitecount = get_option('site_count');
+35 $date = date('ymd',time());
+36 echo '<p>总访问量：<span style="color:#7df1ff">'.absint($sitecount['all']).'</span>    今日访问量：<span style="color:#7df1ff">'.absint($sitecount['today']).'</span>    您是今天第：<span style="color:#7df1ff">'.absint($_SESSION['wb_'.$date]).'</span> 位访问者</p>';
+37
