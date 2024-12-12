@@ -70,28 +70,22 @@ var caution = false
 <!-- 次数统计 over -->
 
 
-today_visits = 0 # 存储今日访问量
-total_visits = 0 # 存储总访问量
+<?php
+@session_start();
+$counter = intval(file_get_contents("counter.dat"));
+if(!$_SESSION['#'])
+{
+$_SESSION['#'] = true;
+$counter++;
+$fp = fopen("counter.dat","w");
+fwrite($fp, $counter);
+fclose($fp);
+}
+?>
+<p align="center">您是到访的第<?php echo "$counter";?>位用户<p>
 
-def update_visits():
-    global today_visits, total_visits
-    today_visits += 1
-    total_visits += 1
 
-def get_today_visits():
-    global today_visits
-    return today_visits
-
-def get_total_visits():
-    global total_visits
-    return total_visits
-
-# 在每次访问时调用update_visits函数
-update_visits()
-
-# 获取今日访问量和总访问量
-today_visits = get_today_visits()
-total_visits = get_total_visits()
-
-print("今日访问量：", today_visits)
-print("总访问量：", total_visits)
+<script async src="https://api.ly522.com/js/jilei.pure.mini.js"></script> 
+<span id="jilei_container_site_pv">本站总访问量<span id="jilei_value_site_pv"></span>次</span> 
+<span class="post-meta-divider">|</span> 
+<span id="jilei_container_site_uv">本站访客数<span id="jilei_value_site_uv"></span>人</span></p>
