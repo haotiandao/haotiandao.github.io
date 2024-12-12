@@ -86,7 +86,7 @@ var caution = false
     function show_date_time(){
         window.setTimeout("show_date_time()", 1000);
         // 这里修改站点开启日期
-        BirthDay=new Date("12/03/2023 00:00:00");
+        BirthDay=new Date("12/12/2023 00:00:00");
         today=new Date();
         timeold=(today.getTime()-BirthDay.getTime());
         sectimeold=timeold/1000
@@ -124,7 +124,7 @@ var caution = false
         var todayHour = today.getHours();
         var todayMinute = today.getMinutes();
         var todaySecond = today.getSeconds();
-        var t1 = Date.UTC(2023,03,12,00,00,00);  //此处填写建站时间 依次为 年,月,日,时,分,秒注意格式 半角,
+        var t1 = Date.UTC(2023,12,12,00,00,00);  //此处填写建站时间 依次为 年,月,日,时,分,秒注意格式 半角,
         var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
         var diff = t2-t1;
         var diffYears = Math.floor(diff/years);
