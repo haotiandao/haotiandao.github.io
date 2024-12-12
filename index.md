@@ -69,6 +69,8 @@ var caution = false
     </center>
 <!-- 次数统计 over -->
 
+
+<?php wb_echo_site_count(); ?>
 /**
 * 统计全站总访问量/今日总访问量/当前是第几个访客
 * @return [type] [description]
