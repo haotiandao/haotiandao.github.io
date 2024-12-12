@@ -68,3 +68,30 @@ var caution = false
     </script>
     </center>
 <!-- 次数统计 over -->
+
+
+today_visits = 0 # 存储今日访问量
+total_visits = 0 # 存储总访问量
+
+def update_visits():
+    global today_visits, total_visits
+    today_visits += 1
+    total_visits += 1
+
+def get_today_visits():
+    global today_visits
+    return today_visits
+
+def get_total_visits():
+    global total_visits
+    return total_visits
+
+# 在每次访问时调用update_visits函数
+update_visits()
+
+# 获取今日访问量和总访问量
+today_visits = get_today_visits()
+total_visits = get_total_visits()
+
+print("今日访问量：", today_visits)
+print("总访问量：", total_visits)
