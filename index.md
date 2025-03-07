@@ -1,3 +1,30 @@
+
+
+<?php 
+$date = date('Y-m-d'); // 获取当前日期
+$filename = "$date.txt";
+
+// 读取文件中的计数器值
+$counter = intval(file_get_contents($filename));
+
+// 增加计数器值
+$totalFilename = "total.txt";
+$totalCounter = intval(file_get_contents($totalFilename));
+
+// 计算昨日访问人数
+$yesterdayDate = date('Y-m-d', strtotime('-1 day'));
+$yesterdayFilename = "$yesterdayDate.txt";
+$yesterdayCounter = file_exists($yesterdayFilename) ? intval(file_get_contents($yesterdayFilename)) : 0;
+
+
+echo "今日访问人数：$counter<br>";
+echo "昨日访问人数：$yesterdayCounter<br>";
+echo "总访问量：$totalCounter<br>";
+
+?>
+
+
+
 <html>
   <head>
     <title>自动刷新页面</title>
